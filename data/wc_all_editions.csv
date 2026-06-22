@@ -1,0 +1,23 @@
+edition,year,host,champion,runner_up,third_place,fourth_place,teams,matches,goals,goals_per_match,attendance,top_scorer,top_scorer_country,top_scorer_goals,start_date,end_date,final_city,host_won,format
+1,1930,Uruguay,Uruguay,Argentina,United States,Yugoslavia,13,18,70,3.89,590549,Guillermo Stábile,Argentina,8,July 13,July 30,Montevideo,No,Round Robin
+2,1934,Italy,Italy,Czechoslovakia,Germany,Austria,16,17,70,4.12,363000,Oldřich Nejedlý,Czechoslovakia,5,May 27,June 10,Rome,Yes,Knockout
+3,1938,France,Italy,Hungary,Brazil,Sweden,15,18,84,4.67,375700,Leônidas,Brazil,7,June 4,June 19,Paris,Yes,Knockout
+4,1950,Brazil,Uruguay,Brazil,Sweden,Spain,13,22,88,4.0,1045246,Ademir,Brazil,8,June 24,July 16,Rio de Janeiro,No,Round Robin Final
+5,1954,Switzerland,West Germany,Hungary,Austria,Uruguay,16,26,140,5.38,768607,Sándor Kocsis,Hungary,11,June 16,July 4,Bern,No,Knockout
+6,1958,Sweden,Brazil,Sweden,France,West Germany,16,35,126,3.6,819810,Just Fontaine,France,13,June 8,June 29,Stockholm,No,Knockout
+7,1962,Chile,Brazil,Czechoslovakia,Chile,Yugoslavia,16,32,89,2.78,893172,Florian Albert / Garrincha / Valentin Ivanov / Leonel Sánchez / Dražan Jerković / Vavá,Multiple,4,May 30,June 17,Santiago,No,Knockout
+8,1966,England,England,West Germany,Portugal,Soviet Union,16,32,89,2.78,1563135,Eusébio,Portugal,9,July 11,July 30,London,Yes,Knockout
+9,1970,Mexico,Brazil,Italy,West Germany,Uruguay,16,32,95,2.97,1603975,Gerd Müller,West Germany,10,May 31,June 21,Mexico City,No,Knockout
+10,1974,West Germany,West Germany,Netherlands,Poland,Brazil,16,38,97,2.55,1865753,Grzegorz Lato,Poland,7,June 13,July 7,Munich,Yes,Knockout
+11,1978,Argentina,Argentina,Netherlands,Brazil,Italy,16,38,102,2.68,1545791,Mario Kempes,Argentina,6,June 1,June 25,Buenos Aires,Yes,Knockout
+12,1982,Spain,Italy,West Germany,Poland,France,24,52,146,2.81,1766277,Paolo Rossi,Italy,6,June 13,July 11,Madrid,No,Knockout
+13,1986,Mexico,Argentina,West Germany,France,Belgium,24,52,132,2.54,2394031,Gary Lineker,England,6,May 31,June 29,Mexico City,No,Knockout
+14,1990,Italy,West Germany,Argentina,Italy,England,24,52,115,2.21,2516215,Salvatore Schillaci,Italy,6,June 8,July 8,Rome,No,Knockout
+15,1994,United States,Brazil,Italy,Sweden,Bulgaria,24,52,141,2.71,3587538,Hristo Stoichkov / Oleg Salenko,Bulgaria / Russia,6,June 17,July 17,Pasadena,No,Knockout
+16,1998,France,France,Brazil,Croatia,Netherlands,32,64,171,2.67,2785100,Davor Šuker,Croatia,6,June 10,July 12,Paris,Yes,Knockout
+17,2002,South Korea / Japan,Brazil,Germany,Turkey,South Korea,32,64,161,2.52,2705197,Ronaldo,Brazil,8,May 31,June 30,Yokohama,No,Knockout
+18,2006,Germany,Italy,France,Germany,Portugal,32,64,147,2.3,3359439,Miroslav Klose,Germany,5,June 9,July 9,Berlin,No,Knockout
+19,2010,South Africa,Spain,Netherlands,Germany,Uruguay,32,64,145,2.27,3178856,Thomas Müller / Wesley Sneijder / David Villa / Diego Forlán,Multiple,5,June 11,July 11,Johannesburg,No,Knockout
+20,2014,Brazil,Germany,Argentina,Netherlands,Brazil,32,64,171,2.67,3429873,James Rodríguez,Colombia,6,June 12,July 13,Rio de Janeiro,No,Knockout
+21,2018,Russia,France,Croatia,Belgium,England,32,64,169,2.64,3031768,Harry Kane,England,6,June 14,July 15,Moscow,No,Knockout
+22,2022,Qatar,Argentina,France,Croatia,Morocco,32,64,172,2.69,3404252,Kylian Mbappé,France,8,November 20,December 18,Lusail,No,Knockout

@@ -1,0 +1,185 @@
+year,stage,team1,score1,score2,team2,venue,city,country,date,notes
+1930,Group Stage,France,4,1,Mexico,Estadio Centenario,Montevideo,Uruguay,1930-07-13,First ever WC match
+1930,Group Stage,USA,3,0,Belgium,Estadio Centenario,Montevideo,Uruguay,1930-07-13,
+1930,Group Stage,Yugoslavia,2,1,Brazil,Estadio Centenario,Montevideo,Uruguay,1930-07-14,
+1930,Group Stage,Uruguay,1,0,Peru,Estadio Centenario,Montevideo,Uruguay,1930-07-18,
+1930,Group Stage,Argentina,6,3,USA,Estadio Centenario,Montevideo,Uruguay,1930-07-26,
+1930,Semi-final,Uruguay,6,1,Yugoslavia,Estadio Centenario,Montevideo,Uruguay,1930-07-27,
+1930,Semi-final,Argentina,6,1,USA,Estadio Centenario,Montevideo,Uruguay,1930-07-26,
+1930,Final,Uruguay,4,2,Argentina,Estadio Centenario,Montevideo,Uruguay,1930-07-30,First WC Final
+1934,Round of 16,Italy,7,1,USA,PNF Stadium,Rome,Italy,1934-05-27,
+1934,Round of 16,Germany,5,2,Belgium,PNF Stadium,Florence,Italy,1934-05-27,
+1934,Quarter-final,Italy,1,1,Spain,PNF Stadium,Florence,Italy,1934-05-31,AET - replay
+1934,Semi-final,Italy,1,0,Austria,San Siro,Milan,Italy,1934-06-03,
+1934,Semi-final,Germany,3,1,Sweden,Stadio Bentegodi,Bologna,Italy,1934-06-03,
+1934,3rd Place,Germany,3,2,Austria,Stadio Bentegodi,Naples,Italy,1934-06-07,
+1934,Final,Italy,2,1,Czechoslovakia,PNF Stadium,Rome,Italy,1934-06-10,AET
+1938,Round of 16,Brazil,6,5,Poland,Stade de la Meinau,Strasbourg,France,1938-06-05,AET - 11 goals!
+1938,Round of 16,Italy,2,1,Norway,Stade de Gerland,Lyon,France,1938-06-05,AET
+1938,Quarter-final,Brazil,1,1,Czechoslovakia,Stade de la Meinau,Bordeaux,France,1938-06-12,Replay
+1938,Semi-final,Italy,2,1,Brazil,Stade de Colombes,Paris,France,1938-06-16,
+1938,Semi-final,Hungary,5,1,Sweden,Stade Olympique,Paris,France,1938-06-16,
+1938,3rd Place,Brazil,4,2,Sweden,Stade de Bordeaux,Bordeaux,France,1938-06-19,
+1938,Final,Italy,4,2,Hungary,Stade de Colombes,Paris,France,1938-06-19,
+1950,Group Stage,Brazil,4,0,Mexico,Estádio do Maracanã,Rio de Janeiro,Brazil,1950-06-24,
+1950,Group Stage,England,0,1,USA,Estádio Independência,Belo Horizonte,Brazil,1950-06-29,Greatest WC upset ever
+1950,Final Round,Brazil,7,1,Sweden,Estádio do Maracanã,Rio de Janeiro,Brazil,1950-07-09,
+1950,Final Round,Uruguay,3,2,Sweden,Estádio do Maracanã,São Paulo,Brazil,1950-07-09,
+1950,Final Round,Uruguay,2,1,Brazil,Estádio do Maracanã,Rio de Janeiro,Brazil,1950-07-16,Maracanazo
+1954,Group Stage,Hungary,9,0,South Korea,Hardturm,Zürich,Switzerland,1954-06-17,
+1954,Group Stage,West Germany,3,8,Hungary,Wankdorf,Bern,Switzerland,1954-06-20,
+1954,Quarter-final,Austria,7,5,Switzerland,Hardturm,Lausanne,Switzerland,1954-06-26,Highest scoring WC match ever
+1954,Semi-final,West Germany,6,1,Austria,Wankdorf,Basel,Switzerland,1954-06-30,
+1954,Semi-final,Hungary,4,2,Uruguay,Stade Olympique,Lausanne,Switzerland,1954-06-30,
+1954,3rd Place,Austria,3,1,Uruguay,Hardturm,Zürich,Switzerland,1954-07-03,
+1954,Final,West Germany,3,2,Hungary,Wankdorf,Bern,Switzerland,1954-07-04,Miracle of Bern
+1958,Group Stage,Brazil,3,0,Austria,Ryavallen,Borås,Sweden,1958-06-08,
+1958,Group Stage,France,7,3,Paraguay,Idrottsparken,Norrköping,Sweden,1958-06-08,Fontaine hat-trick
+1958,Quarter-final,France,4,0,Northern Ireland,Ullevi,Gothenburg,Sweden,1958-06-19,
+1958,Semi-final,Brazil,5,2,France,Ullevi,Gothenburg,Sweden,1958-06-24,
+1958,Semi-final,Sweden,3,1,West Germany,Ullevi,Gothenburg,Sweden,1958-06-24,
+1958,3rd Place,France,6,3,West Germany,Ullevi,Gothenburg,Sweden,1958-06-28,Fontaine scores 4
+1958,Final,Brazil,5,2,Sweden,Råsunda,Stockholm,Sweden,1958-06-29,Pelé scores 2 at 17
+1962,Group Stage,Soviet Union,2,0,Yugoslavia,Estadio El Teniente,Rancagua,Chile,1962-05-31,
+1962,Group Stage,Italy,0,0,Chile,Estadio Nacional,Santiago,Chile,1962-06-02,Battle of Santiago
+1962,Quarter-final,Brazil,3,1,England,Estadio Sausalito,Viña del Mar,Chile,1962-06-10,
+1962,Semi-final,Brazil,4,2,Chile,Estadio Nacional,Santiago,Chile,1962-06-13,
+1962,Semi-final,Czechoslovakia,3,1,Yugoslavia,Estadio El Teniente,Vina del Mar,Chile,1962-06-13,
+1962,3rd Place,Chile,1,0,Yugoslavia,Estadio Nacional,Santiago,Chile,1962-06-16,
+1962,Final,Brazil,3,1,Czechoslovakia,Estadio Nacional,Santiago,Chile,1962-06-17,
+1966,Group Stage,England,0,0,Uruguay,Wembley,London,England,1966-07-11,
+1966,Group Stage,North Korea,1,0,Italy,Ayresome Park,Middlesbrough,England,1966-07-19,Biggest WC upset
+1966,Quarter-final,North Korea,3,5,Portugal,Goodison Park,Liverpool,England,1966-07-23,Eusébio scores 4
+1966,Quarter-final,England,1,0,Argentina,Wembley,London,England,1966-07-23,
+1966,Semi-final,England,2,1,Portugal,Wembley,London,England,1966-07-26,
+1966,Semi-final,West Germany,2,1,Soviet Union,Goodison Park,Liverpool,England,1966-07-25,
+1966,3rd Place,Portugal,2,1,Soviet Union,Wembley,London,England,1966-07-28,
+1966,Final,England,4,2,West Germany,Wembley,London,England,1966-07-30,Geoff Hurst hat-trick
+1970,Group Stage,Brazil,4,1,Czechoslovakia,Estadio Jalisco,Guadalajara,Mexico,1970-06-03,
+1970,Group Stage,West Germany,3,10,Bulgaria,Estadio Nou Camp,León,Mexico,1970-06-02,
+1970,Quarter-final,Brazil,4,2,Peru,Estadio Jalisco,Guadalajara,Mexico,1970-06-14,
+1970,Quarter-final,West Germany,3,2,England,Estadio Nou Camp,León,Mexico,1970-06-14,AET - England 2-0 up
+1970,Semi-final,Italy,4,3,West Germany,Estadio Azteca,Mexico City,Mexico,1970-06-17,Game of the Century AET
+1970,Semi-final,Brazil,3,1,Uruguay,Estadio Jalisco,Guadalajara,Mexico,1970-06-17,
+1970,3rd Place,West Germany,1,0,Uruguay,Estadio Azteca,Mexico City,Mexico,1970-06-20,
+1970,Final,Brazil,4,1,Italy,Estadio Azteca,Mexico City,Mexico,1970-06-21,Brazil keep the Jules Rimet
+1974,Group Stage,East Germany,1,0,West Germany,Volksparkstadion,Hamburg,West Germany,1974-06-22,Only time they met
+1974,Group Stage,Brazil,0,0,Yugoslavia,Olympiastadion,Berlin,West Germany,1974-06-18,
+1974,Semi-final Round,Netherlands,2,0,Brazil,Westfalenstadion,Dortmund,West Germany,1974-07-03,
+1974,Semi-final Round,West Germany,1,0,Poland,Olympiastadion,Frankfurt,West Germany,1974-07-03,
+1974,3rd Place,Poland,1,0,Brazil,Olympiastadion,Munich,West Germany,1974-07-06,
+1974,Final,West Germany,2,1,Netherlands,Olympiastadion,Munich,West Germany,1974-07-07,
+1978,Group Stage,Argentina,2,1,Hungary,El Monumental,Buenos Aires,Argentina,1978-06-02,
+1978,Group Stage,Italy,1,0,Argentina,El Monumental,Buenos Aires,Argentina,1978-06-10,
+1978,Group Stage,Argentina,6,0,Peru,El Monumental,Buenos Aires,Argentina,1978-06-21,Controversial result
+1978,3rd Place,Brazil,2,1,Italy,El Monumental,Buenos Aires,Argentina,1978-06-24,
+1978,Final,Argentina,3,1,Netherlands,El Monumental,Buenos Aires,Argentina,1978-06-25,AET - Kempes 2
+1982,Group Stage,Algeria,2,1,West Germany,El Molinon,Gijón,Spain,1982-06-16,Biggest WC upset 1982
+1982,Group Stage,West Germany,1,0,Austria,El Molinon,Gijón,Spain,1982-06-25,Disgrace of Gijón
+1982,Group Stage,Brazil,3,1,Argentina,Sarriá,Barcelona,Spain,1982-06-02,
+1982,Quarter-final,West Germany,0,0,France,Ramón Sánchez Pizjuán,Seville,Spain,1982-07-08,First WC shootout - Germany win 5-4 pens
+1982,Semi-final,Italy,2,0,Poland,Camp Nou,Barcelona,Spain,1982-07-08,
+1982,3rd Place,Poland,3,2,France,Estadio Metropolitano,Madrid,Spain,1982-07-10,
+1982,Final,Italy,3,1,West Germany,Bernabéu,Madrid,Spain,1982-07-11,Rossi wins Golden Boot
+1986,Group Stage,Denmark,6,1,Uruguay,Estadio Neza,Nezahualcóyotl,Mexico,1986-06-08,
+1986,Round of 16,Belgium,4,3,Soviet Union,Estadio Jalisco,Guadalajara,Mexico,1986-06-15,AET
+1986,Quarter-final,Argentina,2,1,England,Estadio Azteca,Mexico City,Mexico,1986-06-22,Hand of God + Goal of Century
+1986,Quarter-final,France,0,0,Brazil,Estadio Jalisco,Guadalajara,Mexico,1986-06-21,France win 4-3 pens
+1986,Semi-final,Argentina,2,0,Belgium,Estadio Azteca,Mexico City,Mexico,1986-06-25,Maradona 2 goals
+1986,Semi-final,West Germany,2,0,France,Estadio Jalisco,Guadalajara,Mexico,1986-06-25,
+1986,3rd Place,France,4,2,Belgium,Estadio Cuauhtémoc,Puebla,Mexico,1986-06-28,
+1986,Final,Argentina,3,2,West Germany,Estadio Azteca,Mexico City,Mexico,1986-06-29,Maradona's WC
+1990,Group Stage,Argentina,0,1,Cameroon,San Siro,Milan,Italy,1990-06-08,Greatest WC upset 1990
+1990,Group Stage,Colombia,1,1,West Germany,Stadio Giuseppe Meazza,Milan,Italy,1990-06-19,Rene Higuita error
+1990,Round of 16,Ireland,0,0,Romania,Stadio Luigi Ferraris,Genoa,Italy,1990-06-25,Ireland win 5-4 pens
+1990,Quarter-final,West Germany,1,0,Czechoslovakia,Stadio delle Alpi,Turin,Italy,1990-07-01,
+1990,Quarter-final,Argentina,0,0,Yugoslavia,Stadio Marc Antonio Bentegodi,Florence,Italy,1990-07-01,Argentina win 3-2 pens
+1990,Semi-final,West Germany,1,1,England,Stadio delle Alpi,Turin,Italy,1990-07-04,Germany win 4-3 pens - Gazza cries
+1990,Semi-final,Argentina,1,1,Italy,San Paolo,Naples,Italy,1990-07-03,Argentina win 4-3 pens
+1990,3rd Place,Italy,2,1,England,Stadio San Nicola,Bari,Italy,1990-07-07,Schillaci Golden Boot
+1990,Final,West Germany,1,0,Argentina,Stadio Olimpico,Rome,Italy,1990-07-08,Penalty - Brehme
+1994,Group Stage,Bolivia,0,1,Germany,Pontiac Silverdome,Detroit,USA,1994-06-17,First indoor WC match
+1994,Group Stage,Russia,6,1,Cameroon,Stanford Stadium,Palo Alto,USA,1994-06-28,Salenko 5 goals
+1994,Group Stage,Brazil,3,0,Russia,Stanford Stadium,Stanford,USA,1994-06-28,
+1994,Quarter-final,Brazil,1,0,Netherlands,Cotton Bowl,Dallas,USA,1994-07-09,Bebeto cradle celebration
+1994,Semi-final,Brazil,1,0,Sweden,Rose Bowl,Pasadena,USA,1994-07-13,
+1994,Semi-final,Italy,2,1,Bulgaria,Giants Stadium,New Jersey,USA,1994-07-13,
+1994,3rd Place,Sweden,4,0,Bulgaria,Rose Bowl,Pasadena,USA,1994-07-16,
+1994,Final,Brazil,0,0,Italy,Rose Bowl,Pasadena,USA,1994-07-17,Brazil win 3-2 pens - Baggio misses
+1998,Group Stage,Brazil,2,1,Scotland,Stade de France,Saint-Denis,France,1998-06-10,
+1998,Group Stage,Nigeria,3,2,Spain,Stade de la Mosson,Montpellier,France,1998-06-13,
+1998,Round of 16,Argentina,2,2,England,Stade Geoffroy-Guichard,Saint-Étienne,France,1998-06-30,Beckham sent off - Argentina win 4-3 pens
+1998,Round of 16,France,1,0,Paraguay,Félix Bollaert,Lens,France,1998-06-28,AET - Blanc golden goal
+1998,Quarter-final,Netherlands,2,1,Argentina,Stade Vélodrome,Marseille,France,1998-07-04,Bergkamp goal of tournament
+1998,Quarter-final,France,0,0,Italy,Stade de France,Saint-Denis,France,1998-07-03,France win 4-3 pens
+1998,Semi-final,France,2,1,Croatia,Stade de France,Saint-Denis,France,1998-07-08,
+1998,Semi-final,Brazil,1,1,Netherlands,Stade Vélodrome,Marseille,France,1998-07-07,Brazil win 4-2 pens
+1998,3rd Place,Croatia,2,1,Netherlands,Parc des Princes,Paris,France,1998-07-11,
+1998,Final,France,3,0,Brazil,Stade de France,Saint-Denis,France,1998-07-12,Ronaldo fit? France dominate
+2002,Group Stage,Senegal,1,0,France,Seoul World Cup Stadium,Seoul,South Korea,2002-05-31,Defending champions out in groups
+2002,Group Stage,South Korea,2,0,Portugal,Suwon World Cup Stadium,Suwon,South Korea,2002-06-14,
+2002,Round of 16,South Korea,2,1,Italy,Daejeon World Cup Stadium,Daejeon,South Korea,2002-06-18,AET - Ahn golden goal
+2002,Quarter-final,South Korea,0,0,Spain,Gwangju World Cup Stadium,Gwangju,South Korea,2002-06-22,South Korea win 5-3 pens
+2002,Quarter-final,Brazil,2,1,England,Shizuoka Stadium,Shizuoka,Japan,2002-06-21,Ronaldinho free kick
+2002,Semi-final,Brazil,1,0,Turkey,Saitama Stadium,Saitama,Japan,2002-06-26,
+2002,Semi-final,Germany,1,0,South Korea,Seoul World Cup Stadium,Seoul,South Korea,2002-06-25,
+2002,3rd Place,Turkey,3,2,South Korea,Daegu World Cup Stadium,Daegu,South Korea,2002-06-29,
+2002,Final,Brazil,2,0,Germany,Yokohama International,Yokohama,Japan,2002-06-30,Ronaldo 2 goals
+2006,Group Stage,Germany,4,2,Costa Rica,Allianz Arena,Munich,Germany,2006-06-09,Opening match
+2006,Group Stage,Australia,3,1,Japan,Fritz Walter Stadion,Kaiserslautern,Germany,2006-06-12,
+2006,Round of 16,Italy,1,0,Australia,Fritz Walter Stadion,Kaiserslautern,Germany,2006-06-26,AET Totti pen
+2006,Round of 16,Portugal,1,0,Netherlands,Allianz Arena,Nuremberg,Germany,2006-06-25,Battle of Nuremberg - 4 red cards
+2006,Quarter-final,Italy,3,0,Ukraine,Olympiastadion,Hamburg,Germany,2006-06-30,Toni 2 goals
+2006,Quarter-final,Germany,1,1,Argentina,Olympiastadion,Berlin,Germany,2006-06-30,Germany win 4-2 pens
+2006,Semi-final,Italy,2,0,Germany,Signal Iduna Park,Dortmund,Germany,2006-07-04,Grosso + Del Piero AET injury time
+2006,Semi-final,Portugal,0,1,France,Allianz Arena,Munich,Germany,2006-07-05,Zidane pen
+2006,3rd Place,Germany,3,1,Portugal,Gottlieb-Daimler-Stadion,Stuttgart,Germany,2006-07-08,
+2006,Final,Italy,1,1,France,Olympiastadion,Berlin,Germany,2006-07-09,Zidane headbutt - Italy win 5-3 pens
+2010,Group Stage,South Africa,1,1,Mexico,Soccer City,Johannesburg,South Africa,2010-06-11,First WC in Africa
+2010,Group Stage,England,1,1,USA,Royal Bafokeng,Rustenburg,South Africa,2010-06-12,Green howler
+2010,Group Stage,Germany,4,0,Australia,Moses Mabhida,Durban,South Africa,2010-06-13,
+2010,Round of 16,USA,1,2,Ghana,Royal Bafokeng,Rustenburg,South Africa,2010-06-26,AET
+2010,Round of 16,England,1,4,Germany,Free State Stadium,Bloemfontein,South Africa,2010-06-27,Lampard ghost goal
+2010,Quarter-final,Argentina,0,4,Germany,Cape Town Stadium,Cape Town,South Africa,2010-07-03,
+2010,Quarter-final,Netherlands,2,1,Brazil,Nelson Mandela Bay,Port Elizabeth,South Africa,2010-07-02,Robben goal
+2010,Semi-final,Netherlands,3,2,Uruguay,Cape Town Stadium,Cape Town,South Africa,2010-07-06,
+2010,Semi-final,Spain,1,0,Germany,Moses Mabhida,Durban,South Africa,2010-07-07,Puyol header
+2010,3rd Place,Uruguay,2,3,Germany,Nelson Mandela Bay,Port Elizabeth,South Africa,2010-07-10,Forlan Golden Ball
+2010,Final,Spain,1,0,Netherlands,Soccer City,Johannesburg,South Africa,2010-07-11,AET - Iniesta
+2014,Group Stage,Brazil,3,1,Croatia,Arena de São Paulo,São Paulo,Brazil,2014-06-12,Opening - OG + Neymar 2
+2014,Group Stage,Spain,1,5,Netherlands,Arena Fonte Nova,Salvador,Brazil,2014-06-13,Defending champs thrashed
+2014,Group Stage,Uruguay,2,1,England,Arena Corinthians,São Paulo,Brazil,2014-06-19,Suárez 2
+2014,Round of 16,Colombia,2,0,Uruguay,Maracanã,Rio de Janeiro,Brazil,2014-06-28,Suárez bites Chiellini
+2014,Round of 16,Germany,2,1,Algeria,Estadio Beira-Rio,Porto Alegre,Brazil,2014-06-30,AET
+2014,Quarter-final,Argentina,0,0,Belgium,Estadio Nacional,Brasília,Brazil,2014-07-05,Higuaín - Argentina win 1-0
+2014,Quarter-final,Germany,1,0,France,Maracanã,Rio de Janeiro,Brazil,2014-07-04,Hummels header
+2014,Semi-final,Brazil,1,7,Germany,Estadio Mineirão,Belo Horizonte,Brazil,2014-07-08,Mineirazo - biggest WC shock
+2014,Semi-final,Argentina,0,0,Netherlands,Arena Corinthians,São Paulo,Brazil,2014-07-09,Argentina win 4-2 pens
+2014,3rd Place,Brazil,0,3,Netherlands,Estadio Nacional,Brasília,Brazil,2014-07-12,
+2014,Final,Germany,1,0,Argentina,Maracanã,Rio de Janeiro,Brazil,2014-07-13,AET - Götze 113th min
+2018,Group Stage,Russia,5,0,Saudi Arabia,Luzhniki,Moscow,Russia,2018-06-14,Opening match
+2018,Group Stage,Germany,0,1,Mexico,Luzhniki,Moscow,Russia,2018-06-17,Defending champs shocked
+2018,Group Stage,Spain,3,3,Portugal,Fisht Olympic,Sochi,Russia,2018-06-15,Ronaldo hat-trick
+2018,Round of 16,Argentina,1,3,France,Kazan Arena,Kazan,Russia,2018-06-30,Mbappé double - Pavard screamer
+2018,Round of 16,Spain,1,1,Russia,Luzhniki,Moscow,Russia,2018-07-01,Russia win 4-3 pens
+2018,Round of 16,Brazil,2,0,Mexico,Samara Arena,Samara,Russia,2018-07-02,Neymar + Firmino
+2018,Quarter-final,Russia,2,2,Croatia,Fisht Olympic,Sochi,Russia,2018-07-07,Croatia win 4-3 pens
+2018,Quarter-final,Belgium,2,1,Brazil,Kazan Arena,Kazan,Russia,2018-07-06,De Bruyne assist + Chadli goal
+2018,Semi-final,France,1,0,Belgium,Saint Petersburg,St Petersburg,Russia,2018-07-10,Umtiti header
+2018,Semi-final,Croatia,2,1,England,Luzhniki,Moscow,Russia,2018-07-11,AET - Mandzukic
+2018,3rd Place,Belgium,2,0,England,Saint Petersburg,St Petersburg,Russia,2018-07-14,
+2018,Final,France,4,2,Croatia,Luzhniki,Moscow,Russia,2018-07-15,Mbappé scores - youngest since Pelé
+2022,Group Stage,Qatar,0,2,Ecuador,Al Bayt Stadium,Al Khor,Qatar,2022-11-20,Opening match - Qatar humbled at home
+2022,Group Stage,Saudi Arabia,2,1,Argentina,Lusail Stadium,Lusail,Qatar,2022-11-22,Biggest WC upset 2022
+2022,Group Stage,Germany,1,2,Japan,Khalifa International,Al Rayyan,Qatar,2022-11-23,
+2022,Group Stage,Spain,1,2,Japan,Khalifa International,Al Rayyan,Qatar,2022-12-01,
+2022,Group Stage,Germany,4,2,Costa Rica,Al Bayt Stadium,Al Khor,Qatar,2022-12-01,Germany out despite winning
+2022,Round of 16,Morocco,0,0,Spain,Education City Stadium,Al Rayyan,Qatar,2022-12-06,Morocco win 3-0 pens
+2022,Round of 16,France,3,1,Poland,Al Thumama Stadium,Doha,Qatar,2022-12-04,Mbappé double
+2022,Round of 16,Netherlands,3,1,USA,Khalifa International,Al Rayyan,Qatar,2022-12-03,
+2022,Quarter-final,Morocco,1,0,Portugal,Al Thumama Stadium,Doha,Qatar,2022-12-10,En-Nesyri - historic
+2022,Quarter-final,France,2,1,England,Al Bayt Stadium,Al Khor,Qatar,2022-12-10,Kane pen miss
+2022,Semi-final,Argentina,3,0,Croatia,Lusail Stadium,Lusail,Qatar,2022-12-13,Messi pen + Álvarez 2
+2022,Semi-final,France,2,0,Morocco,Al Bayt Stadium,Al Khor,Qatar,2022-12-14,
+2022,3rd Place,Croatia,2,1,Morocco,Khalifa International,Al Rayyan,Qatar,2022-12-17,
+2022,Final,Argentina,3,3,France,Lusail Stadium,Lusail,Qatar,2022-12-18,AET - Argentina win 4-2 pens - GOAT final

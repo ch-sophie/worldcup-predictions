@@ -1,0 +1,23 @@
+edition,year,player,country,position,goals,assists,penalties,matches_played,host,team_result
+1,1930,Guillermo Stábile,Argentina,FW,8,0,0,4,Uruguay,Champions
+2,1934,Oldřich Nejedlý,Czechoslovakia,FW,5,0,0,4,Italy,Semi-final
+3,1938,Leônidas,Brazil,FW,7,0,0,5,France,Third place
+4,1950,Ademir,Brazil,FW,8,0,0,6,Brazil,Runner-up
+5,1954,Sándor Kocsis,Hungary,FW,11,0,0,5,Switzerland,Runner-up
+6,1958,Just Fontaine,France,FW,13,0,0,6,Sweden,Third place
+7,1962,Multiple Winners,Multiple,FW,4,0,0,6,Chile,Varies
+8,1966,Eusébio,Portugal,FW,9,0,0,6,England,Third place
+9,1970,Gerd Müller,West Germany,FW,10,0,0,6,Mexico,Third place
+10,1974,Grzegorz Lato,Poland,FW,7,0,0,7,West Germany,Third place
+11,1978,Mario Kempes,Argentina,FW,6,0,0,7,Argentina,Champions
+12,1982,Paolo Rossi,Italy,FW,6,0,0,7,Spain,Champions
+13,1986,Gary Lineker,England,FW,6,0,0,5,Mexico,Quarter-final
+14,1990,Salvatore Schillaci,Italy,FW,6,0,0,7,Italy,Third place
+15,1994,Hristo Stoichkov,Bulgaria,FW,6,0,0,6,United States,Semi-final
+16,1998,Davor Šuker,Croatia,FW,6,0,0,6,France,Third place
+17,2002,Ronaldo,Brazil,FW,8,0,0,7,South Korea/Japan,Champions
+18,2006,Miroslav Klose,Germany,FW,5,0,0,7,Germany,Third place
+19,2010,Thomas Müller,Germany,FW,5,3,0,6,South Africa,Third place
+20,2014,James Rodríguez,Colombia,FW,6,2,0,5,Brazil,Quarter-final
+21,2018,Harry Kane,England,FW,6,0,0,6,Russia,Fourth place
+22,2022,Kylian Mbappé,France,FW,8,2,0,7,Qatar,Runner-up
