@@ -1,0 +1,37 @@
+name: Live Scraper (Dual Database Automation)
+
+on:
+  schedule:
+    - cron: '0 0 * * *' #run every day at midnight UTC
+  workflow_dispatch:
+
+jobs:
+  run-dual-scraper:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+
+    - name: Install Dependencies
+      run: |
+        pip install pandas sqlalchemy requests lxml psycopg2-binary dotenv
+
+    # Runs the script providing the cloud credentials
+    - name: Run Live Scraper
+      env:
+        DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      run: python live_scraper.py
+
+    # Saves the SQLite file backup right back into your repository
+    - name: Commit and Push SQLite Changes
+      run: |
+        git config --global user.name "GitHub Action Automation"
+        git config --global user.email "actions@github.com"
+        git add world_cup_2026.db
+        git diff --quiet && git diff --staged --quiet || (git commit -m "🤖 Sync local SQLite backup" && git push)
