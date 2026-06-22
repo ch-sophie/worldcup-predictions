@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 import pandas as pd
 from sqlalchemy import create_engine, text
 
-# 1. Establish connection
+# 1. Establish connection to supabase
 load_dotenv()
 DATABASE_URL = os.getenv("DATABASE_URL")
 
@@ -19,7 +19,15 @@ data_dir = "data"
 # 2. Create a map of CSV files to the SQL tables
 datasets = {
     "wc_2026_fixtures.csv": "fixtures_2026",
-    "wc_2026_teams.csv": "teams_2026"
+    "wc_2026_teams.csv": "teams_2026",
+    "elo_ratings_wc2026.csv": "elo_ratings_2026",
+    "former_names.csv": "former_names_2026",
+    "goalscorers.csv": "goalscorers",
+    "results.csv": "results",
+    "shootouts.csv": "shootouts",
+    "wc_all_editions.csv": "wc_all_editions",
+    "wc_all_matches.csv": "wc_all_matches",
+    "wc_top_scorers.csv": "wc_top_scorers",
 }
 
 # 3. Process and Load
@@ -46,3 +54,7 @@ with engine.connect() as connection:
     teams_df = pd.read_sql_query(text("SELECT * FROM teams_2026 LIMIT 5;"), connection)
     print("\n--- Teams Preview ---")
     print(teams_df)
+
+    elo_df = pd.read_sql_query(text("SELECT * FROM elo_ratings_2026 LIMIT 5;"), connection)
+    print("\n--- ELO Ratings Preview ---")
+    print(elo_df)
