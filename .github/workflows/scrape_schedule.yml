@@ -1,12 +1,12 @@
-name: Live world cup 2026 scraper
+name: Live world cup 2026 pipeline
 
 on:
   schedule:
-    - cron: '0 0 * * *' #run every day at midnight UTC
+    - cron: '0 */3 * * *' # Runs every 3 hours
   workflow_dispatch:
 
 jobs:
-  run-dual-scraper:
+  run-pipeline:
     runs-on: ubuntu-latest
 
     steps:
@@ -17,18 +17,21 @@ jobs:
       uses: actions/setup-python@v5
       with:
         python-version: '3.11'
+        cache: 'pip' # Speeds up subsequent runs
 
     - name: Install Dependencies
       run: |
-        pip install pandas sqlalchemy requests lxml psycopg2-binary dotenv
+        pip install pandas sqlalchemy sqlite3 numpy
 
-    # Runs the script providing the cloud credentials
-    - name: Run Live Scraper
-      env:
-        DATABASE_URL: ${{ secrets.DATABASE_URL }}
-      run: python scrape/load_db.py
+    # 1. Load the raw data/scraped CSVs into the SQLite DB
+    - name: Load Data into DB
+      run: python load_db.py
 
-    # Saves the SQLite file backup right back into your repository
+    # 2. Process, clean, and generate features
+    - name: Run Data Cleaner and Feature Engineering
+      run: python cleaner.py
+
+    # 3. Saves the SQLite file backup right back into repository
     - name: Commit and Push SQLite Changes
       run: |
         git config --global user.name "GitHub Action Automation"
