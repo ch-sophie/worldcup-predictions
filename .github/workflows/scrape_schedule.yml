@@ -21,7 +21,7 @@ jobs:
 
     - name: Install Dependencies
       run: |
-        pip install pandas sqlalchemy sqlite3 numpy
+        pip install pandas sqlalchemy numpy psycopg2-binary python-dotenv
 
     # 1. Load the raw data/scraped CSVs into the SQLite DB
     - name: Load Data into DB
