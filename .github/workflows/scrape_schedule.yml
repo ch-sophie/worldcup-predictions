@@ -36,5 +36,5 @@ jobs:
       run: |
         git config --global user.name "GitHub Action Automation"
         git config --global user.email "actions@github.com"
-        git add world_cup_2026.db
+        git add worldcup_2026.db
         git diff --quiet && git diff --staged --quiet || (git commit -m "🤖 Sync local SQLite backup" && git push)
