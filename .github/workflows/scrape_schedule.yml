@@ -25,7 +25,7 @@ jobs:
 
     # 1. Load the raw data/scraped CSVs into the SQLite DB
     - name: Load Data into DB
-      run: python load_db.py
+      run: python loader.py
 
     # 2. Process, clean, and generate features
     - name: Run Data Cleaner and Feature Engineering
