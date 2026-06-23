@@ -5,7 +5,7 @@ from sqlalchemy import create_engine
 
 # Import the updated cleaning routine from your cleaner file
 try:
-    from cleaner_test import run_cleaning_pipeline
+    from cleaner import run_cleaning_pipeline
 except ImportError:
     run_cleaning_pipeline = None
 
