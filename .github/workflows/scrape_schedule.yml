@@ -32,9 +32,15 @@ jobs:
       run: python scrape/cleaner.py
 
     # 3. Saves the SQLite file backup right back into repository
-    - name: Commit and Push SQLite Changes
+    - name: Commit and Push Changes
       run: |
         git config --global user.name "GitHub Action Automation"
         git config --global user.email "actions@github.com"
-        git add worldcup_2026.db
-        git diff --quiet && git diff --staged --quiet || (git commit -m "🤖 Sync local SQLite backup" && git push)
+        
+        # Only stage files inside your data folder, avoiding the .db file completely!
+        git add data/
+        git add -f worldcup_2026.db
+        
+        # Only commit if actual changes exist so empty runs don't crash
+        git diff-index --quiet HEAD || git commit -m "Automated data sync"
+        git push
