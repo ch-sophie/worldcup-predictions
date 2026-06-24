@@ -17,30 +17,25 @@ jobs:
       uses: actions/setup-python@v5
       with:
         python-version: '3.11'
-        #cache: 'pip' # Speeds up subsequent runs
 
     - name: Install Dependencies
       run: |
-        pip install pandas sqlalchemy numpy psycopg2-binary python-dotenv
+        pip install pandas sqlalchemy numpy psycopg2-binary python-dotenv requests
 
-    # 1. Load the raw data/scraped CSVs into the SQLite DB
+    # 1. Load the raw Kaggle CSVs and clean them
     - name: Load Data into DB
-      run: python scrape/loader.py
+      run: python scrape/loader.py #with cleaner.py
 
-    # 2. Process, clean, and generate features
-    - name: Run Data Cleaner and Feature Engineering
-      run: python scrape/cleaner.py
+    # 2. Fetch live 2026 match results from football-data.org
+    - name: Fetch Live 2026 Fixtures
+      run: python scrape/live_scraping.py
 
-    # 3. Saves the SQLite file backup right back into repository
+    # 3. Commit SQLite and any data changes back to repo
     - name: Commit and Push Changes
       run: |
         git config --global user.name "GitHub Action Automation"
         git config --global user.email "actions@github.com"
-        
-        # Only stage files inside your data folder, avoiding the .db file completely!
         git add data/
         git add -f worldcup_2026.db
-        
-        # Only commit if actual changes exist so empty runs don't crash
         git diff-index --quiet HEAD || git commit -m "Automated data sync"
         git push
