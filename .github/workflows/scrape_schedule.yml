@@ -28,7 +28,7 @@ jobs:
 
     # 2. Fetch live 2026 match results from football-data.org
     - name: Fetch Live 2026 Fixtures
-      run: python scrape/live_scraping.py
+      run: python scrape/live_scrape.py
 
     # 3. Commit SQLite and any data changes back to repo
     - name: Commit and Push Changes
