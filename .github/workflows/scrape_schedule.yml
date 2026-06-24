@@ -5,6 +5,9 @@ on:
     - cron: '0 */3 * * *' # Runs every 3 hours
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   run-pipeline:
     runs-on: ubuntu-latest
@@ -24,10 +27,14 @@ jobs:
 
     # 1. Load the raw Kaggle CSVs and clean them
     - name: Load Data into DB
-      run: python scrape/loader.py #with cleaner.py
+      env:
+        DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      run: python scrape/loader.py
 
     # 2. Fetch live 2026 match results from football-data.org
     - name: Fetch Live 2026 Fixtures
+      env:
+        FOOTBALL_DATA_API_KEY: ${{ secrets.FOOTBALL_DATA_API_KEY }}
       run: python scrape/live_scrape.py
 
     # 3. Commit SQLite and any data changes back to repo
