@@ -23,27 +23,33 @@ jobs:
 
     - name: Install Dependencies
       run: |
-        pip install pandas sqlalchemy numpy psycopg2-binary python-dotenv requests
+        pip install pandas sqlalchemy numpy requests python-dotenv
 
-    # 1. Load the raw Kaggle CSVs and clean them
-    - name: Load Data into DB
-      env:
-        DATABASE_URL: ${{ secrets.DATABASE_URL }}
+    # 1. Load and clean Kaggle data into SQLite
+    - name: Run Loader & Cleaner
       run: python scrape/loader.py
 
-    # 2. Fetch live 2026 match results from football-data.org
-    # Works manually but blocked when automated 403 error with free api
+    # 2. Fetch live match results
+    # FOOTBALL FREE API BLOCKED WITH AUTOMATION NEED TO RUN MANUALLY 
     - name: Fetch Live 2026 Fixtures
       env:
         FOOTBALL_DATA_API_KEY: ${{ secrets.FOOTBALL_DATA_API_KEY }}
       run: python scrape/live_scrape.py
 
-    # 3. Commit SQLite and any data changes back to repo
+    # 3. Generate ML match predictions based on updated data
+    - name: Run Predictions
+      run: python model/predict.py
+
+    # 4. Run tournament simulations
+    - name: Run Tournament Simulation
+      run: python model/simulate.py
+
+    # 5. Commit the updated SQLite DB 
     - name: Commit and Push Changes
       run: |
         git config --global user.name "GitHub Action Automation"
         git config --global user.email "actions@github.com"
         git add data/
         git add -f worldcup_2026.db
-        git diff-index --quiet HEAD || git commit -m "Automated data sync"
+        git diff-index --quiet HEAD || git commit -m "Automated data, prediction, and simulation sync [skip ci]"
         git push
