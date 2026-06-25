@@ -1,45 +1,63 @@
 import streamlit as st
 import pandas as pd
-import sqlite3
+from supabase import create_client, Client
 import os
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 st.set_page_config(page_title="2026 World Cup ML", page_icon="🏆", layout="wide")
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-DB_PATH  = os.path.join(BASE_DIR, "worldcup_2026.db")
+# --- Supabase Initialization ---
+SUPABASE_URL = os.getenv("SUPABASE_URL")
+SUPABASE_KEY = os.getenv("SUPABASE_KEY")
+
+if not SUPABASE_URL or not SUPABASE_KEY:
+    st.error("Missing Supabase credentials! Please check your .env file.")
+    st.stop()
+
+# Initialize Supabase client
+supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
 
 # --- data fetchers ---
 @st.cache_data(ttl=120)
 def fetch_live_matches():
     try:
-        with sqlite3.connect(DB_PATH) as conn:
-            df = pd.read_sql_query("SELECT * FROM fixtures_2026_live", conn)
+        # Fetching directly from table 'fixtures_2026_live'
+        response = supabase.table("fixtures_2026_live").select("*").execute()
+        df = pd.DataFrame(response.data)
+        
         if not df.empty:
             df['team1'] = df['team1'].str.title()
             df['team2'] = df['team2'].str.title()
             df['date']  = pd.to_datetime(df['date'])
         return df
     except Exception as e:
-        st.error(f"Error: {e}"); return pd.DataFrame()
+        st.error(f"Error fetching live matches: {e}")
+        return pd.DataFrame()
 
 @st.cache_data(ttl=600)
 def fetch_upcoming():
     try:
-        with sqlite3.connect(DB_PATH) as conn:
-            df = pd.read_sql_query("SELECT * FROM fixtures_2026_upcoming", conn)
+        response = supabase.table("fixtures_2026_upcoming").select("*").execute()
+        df = pd.DataFrame(response.data)
+        
         if not df.empty:
             df['team1'] = df['team1'].str.title()
             df['team2'] = df['team2'].str.title()
             df['date']  = pd.to_datetime(df['date'])
         return df
     except Exception as e:
-        st.error(f"Error: {e}"); return pd.DataFrame()
+        st.error(f"Error fetching upcoming matches: {e}")
+        return pd.DataFrame()
 
 @st.cache_data(ttl=120)
 def fetch_predictions():
     try:
-        with sqlite3.connect(DB_PATH) as conn:
-            df = pd.read_sql_query("SELECT * FROM predictions_2026", conn)
+        response = supabase.table("predictions_2026").select("*").execute()
+        df = pd.DataFrame(response.data)
+        
         if not df.empty:
             df['team1']      = df['team1'].str.title()
             df['team2']      = df['team2'].str.title()
@@ -47,18 +65,19 @@ def fetch_predictions():
             df['date']       = pd.to_datetime(df['date'])
         return df
     except Exception as e:
-        st.error(f"Error: {e}"); return pd.DataFrame()
+        st.error(f"Error fetching predictions: {e}")
+        return pd.DataFrame()
 
 @st.cache_data(ttl=300)
 def fetch_tournament():
     try:
-        with sqlite3.connect(DB_PATH) as conn:
-            df = pd.read_sql_query(
-                "SELECT rank, team, win_pct, final_pct, semifinal_pct "
-                "FROM tournament_predictions ORDER BY rank", conn
-            )
-        return df
-    except:
+        # Ordering by rank using Supabase syntax
+        response = supabase.table("tournament_predictions") \
+                           .select("rank, team, win_pct, final_pct, semifinal_pct") \
+                           .order("rank", ascending=True) \
+                           .execute()
+        return pd.DataFrame(response.data)
+    except Exception as e:
         return pd.DataFrame()
 
 df_live_raw = fetch_live_matches()
@@ -148,7 +167,7 @@ with tab2:
 with tab3:
     st.subheader("🤖 Match Win Probabilities")
     if df_preds.empty:
-        st.info("Run `python 03_train_model.py` to generate predictions.")
+        st.info("Run your training model to populate the predictions table.")
     else:
         for _, m in df_preds.iterrows():
             p1  = float(m.get('prob_team1_win', 33))
@@ -183,17 +202,18 @@ with tab3:
 # TAB 4: Tournament winner
 with tab4:
     st.subheader("🏆 Tournament Winner Probabilities")
-    st.caption("Re-run `python simulate.py` to refresh after new results.")
+    st.caption("Refresh after new simulation results are pushed to Supabase.")
 
     if df_tourney.empty:
-        st.info("Run `python simulate.py` to generate tournament predictions.")
+        st.info("Run your simulation script to populate tournament predictions.")
     else:
         col_left, col_right = st.columns([1, 2])
 
         with col_left:
             st.markdown("#### Top 5 Favourites")
             medals = ["🥇", "🥈", "🥉", "4️⃣", "5️⃣"]
-            for i, row in df_tourney.head(5).iterrows():
+            # Resetting index to make sure i corresponds to 0..4 for medals
+            for i, row in df_tourney.head(5).reset_index(drop=True).iterrows():
                 st.metric(
                     label=f"{medals[i]} {row['team']}",
                     value=f"{row['win_pct']:.1f}%",
