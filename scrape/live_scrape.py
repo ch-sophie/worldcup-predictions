@@ -4,7 +4,8 @@ import pandas as pd
 from sqlalchemy import create_engine
 from dotenv import load_dotenv
 
-load_dotenv()
+#load_dotenv()
+load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), '..', '.env'))
 FOOTBALL_DATA_KEY = os.getenv("FOOTBALL_DATA_KEY")
 DATABASE_URL = os.getenv("DATABASE_URL")
 
