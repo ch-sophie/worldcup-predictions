@@ -2,7 +2,7 @@ name: Live world cup 2026 pipeline
 
 on:
   schedule:
-    - cron: '0 */3 * * *' # Runs every 3 hours
+    - cron: '0 */6 * * *' # Runs every 6 hours
   workflow_dispatch:
 
 permissions:
@@ -32,6 +32,7 @@ jobs:
       run: python scrape/loader.py
 
     # 2. Fetch live 2026 match results from football-data.org
+    # Works manually but blocked when automated 403 error with free api
     - name: Fetch Live 2026 Fixtures
       env:
         FOOTBALL_DATA_API_KEY: ${{ secrets.FOOTBALL_DATA_API_KEY }}

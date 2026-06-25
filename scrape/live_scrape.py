@@ -5,7 +5,6 @@ from sqlalchemy import create_engine
 from dotenv import load_dotenv
 
 load_dotenv()
-
 FOOTBALL_DATA_KEY = os.getenv("FOOTBALL_DATA_KEY")
 DATABASE_URL = os.getenv("DATABASE_URL")
 
@@ -28,7 +27,7 @@ def fetch_live_api_data():
         print(f"Total matches returned: {data.get('resultSet', {}).get('count', 0)}")
         return data
     except requests.exceptions.RequestException as e:
-        print(f"Error fetching API data: {e}")
+        print(f"❌ Error fetching API data: {e}")
         return None
 
 # --- 2. CLEAN ---

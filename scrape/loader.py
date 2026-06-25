@@ -3,7 +3,7 @@ import pandas as pd
 from dotenv import load_dotenv
 from sqlalchemy import create_engine
 
-# Import the updated cleaning routine from your cleaner file
+# Import the updated cleaning routine from cleaner
 try:
     from cleaner import run_cleaning_pipeline
 except ImportError:
@@ -23,9 +23,9 @@ supabase_engine = None
 
 if supabase_url:
     supabase_engine = create_engine(supabase_url)
-    print("☁️ Cloud Supabase Engine Ready!")
+    print("Cloud Supabase Engine Ready!")
 else:
-    print("⚠️ Warning: No DATABASE_URL found. Skipping Supabase upload.")
+    print("Warning: No DATABASE_URL found. Skipping Supabase upload.")
 
 # --- 2. THE PROCESSING LOOP (RAW TABLES) ---
 data_dir = "data"
@@ -51,16 +51,16 @@ for csv_name, config in datasets.items():
         df = pd.read_csv(file_path)
         df.columns = [col.lower().replace(" ", "_") for col in df.columns]
         
-        # 🚀 Write to Database #1: Local SQLite
+        # Write to Database #1: Local SQLite
         print(f"Writing '{table_name}' to Local SQLite...")
         df.to_sql(table_name, con=engine, if_exists=action, index=False)
         
-        # 🚀 Write to Database #2: Cloud Supabase
+        # Write to Database #2: Cloud Supabase
         if supabase_engine:
             print(f"Writing '{table_name}' to Cloud Supabase...")
             df.to_sql(table_name, con=supabase_engine, if_exists=action, index=False, method='multi')
             
-        print(f"✅ '{table_name}' successfully updated everywhere!\n")
+        print(f"'{table_name}' successfully updated everywhere!\n")
 
 # --- 3. TRIGGER DUAL CLEANING PIPELINE ---
 if run_cleaning_pipeline:
@@ -77,6 +77,6 @@ if run_cleaning_pipeline:
         print("\n[CLOUD] Cleaning cloud Supabase tables...")
         run_cleaning_pipeline(supabase_engine, db_type="Supabase")
         
-    print("\n🎉 Done! All raw and clean tables are matching locally and in Supabase.")
+    print("\nDone! All raw and clean tables are matching locally and in Supabase.")
 else:
-    print("❌ Could not trigger cleaning: cleaner.py file is missing or formatted incorrectly.")
+    print("❌ Could not trigger cleaning: cleaner.py")
