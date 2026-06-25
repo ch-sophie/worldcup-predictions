@@ -23,7 +23,7 @@ jobs:
 
     - name: Install Dependencies
       run: |
-        pip install pandas sqlalchemy numpy requests python-dotenv joblib 
+        pip install pandas sqlalchemy numpy requests python-dotenv joblib scikit-learn 
 
     # 1. Load and clean Kaggle data into SQLite
     - name: Run Loader & Cleaner
