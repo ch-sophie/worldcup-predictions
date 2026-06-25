@@ -3,8 +3,8 @@ Build an end-to-end system to predict football match outcomes for the 2026 WC
 
 Local sqlite db
 - scrape loader.py (with cleaner) -> live_scrape.py (live from free api limitations)
-- predict.py
-- simulate.py
+- model/redict.py
+- model/simulate.py
 - streamlit run app/app.py
 
 Supabase

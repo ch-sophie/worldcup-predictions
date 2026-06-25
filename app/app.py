@@ -177,8 +177,6 @@ with tab3:
                 with c5:
                     st.markdown(f"### {m.get('team2','?')}")
                     st.metric("Win", f"{p2:.1f}%")
-                st.markdown(f"<div style='text-align:center'>🤖 Predicted: <b>{pred}</b></div>",
-                            unsafe_allow_html=True)
 
 # TAB 4: Tournament winner
 with tab4:
