@@ -10,5 +10,4 @@ __pycache__/
 *.log
 .DS_Store
 notebooks
-data 
 .streamlit
