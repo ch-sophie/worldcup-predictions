@@ -36,6 +36,13 @@ jobs:
       run: |
         python scrape/load_sync.py
 
+    - name: Download Model from Release
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Built-in token
+      run: |
+        mkdir -p model
+        gh release download --pattern 'model.pkl' --output model/model.pkl
+
     - name: Execute Model Predictions & Push to Supabase
       env:
         SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
