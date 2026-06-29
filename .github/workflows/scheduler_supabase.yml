@@ -29,27 +29,27 @@ jobs:
         SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
       run: python scrape/loader.py
 
-    #- name: Fetch Live 2026 Fixtures
+    - name: Fetch Live 2026 Fixtures
+      env:
+        FOOTBALL_DATA_API_KEY: ${{ secrets.FOOTBALL_DATA_API_KEY }}
+        SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+        SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+      run: python scrape/live_scrape.py
+      continue-on-error: true
+
+    #- name: Download Trained Model Asset
+    #  run: |
+    #    mkdir -p model
+    #    curl -L -o model/model.pkl https://github.com/ch-sophie/worldcup-predictions/releases/download/v1.0.0/model.pkl
+
+    #- name: Run Predictions
     #  env:
-    #    FOOTBALL_DATA_API_KEY: ${{ secrets.FOOTBALL_DATA_API_KEY }}
     #    SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
     #    SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
-    #  run: python scrape/live_scrape.py
-    #  continue-on-error: true
+    #  run: python model/predict_supabase.py
 
-    - name: Download Trained Model Asset
-      run: |
-        mkdir -p model
-        curl -L -o model/model.pkl https://github.com/ch-sophie/worldcup-predictions/releases/download/v1.0.0/model.pkl
-
-    - name: Run Predictions
-      env:
-        SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-        SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
-      run: python model/predict_supabase.py
-
-    - name: Run Tournament Simulation
-      env:
-        SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-        SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
-      run: python model/simulate_supabase.py
+    #- name: Run Tournament Simulation
+    #  env:
+    #    SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+    #    SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+    #   run: python model/simulate_supabase.py
