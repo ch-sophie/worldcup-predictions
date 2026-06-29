@@ -91,7 +91,7 @@ def run_pipeline():
             print(f"Warning: File {csv_name} not found in zip extract. Skipping.")
 
     # --- 5. THE RESULTS SPLIT EXTRACTION ---
-    print("\n--- Parsing and Splitting 'results.csv' ---")
+    print("\n--- Parsing and Splitting ONLY 'FIFA World Cup 2026' ---")
     results_path = os.path.join(DATA_DIR, "results.csv")
     
     if not os.path.exists(results_path):
@@ -100,7 +100,15 @@ def run_pipeline():
     columns = ['date', 'team1', 'team2', 'score1', 'score2', 'tournament', 'city', 'country', 'neutral']
     df_results = pd.read_csv(results_path, names=columns, header=None)
     
-    # Sync the main complete results file for database historical record continuity
+    # 🌟 NEW FILTER: Keep ONLY the 2026 World Cup tournament matches 🌟
+    # Option A: Filter by date range (Safest choice for this historical file)
+    df_results = df_results[
+        (df_results['date'] >= '2026-06-11') & 
+        (df_results['date'] <= '2026-07-19') & 
+        (df_results['tournament'].str.contains('World Cup', case=False, na=False))
+    ].copy()
+
+    # Sync the filtered main results file to your database
     sync_table_to_databases(df_results, "results")
     
     # Convert score columns to numbers so text flags like 'NA' become true NaNs
@@ -115,13 +123,11 @@ def run_pipeline():
     if 'stage' not in df_live.columns:    df_live['stage'] = 'GROUP_STAGE'
     if 'stage' not in df_upcoming.columns: df_upcoming['stage'] = 'GROUP_STAGE'
     
-    print(f"Detected {len(df_live)} completed matches and {len(df_upcoming)} upcoming fixtures.")
+    print(f"Detected {len(df_live)} completed 2026 WC matches and {len(df_upcoming)} upcoming 2026 WC fixtures.")
     
     # Synchronize split fixtures tables everywhere
     sync_table_to_databases(df_live, "fixtures_2026_live")
     sync_table_to_databases(df_upcoming, "fixtures_2026_upcoming")
-    
-    print("\nDone! Both local SQLite and Cloud Supabase are completely up to date.")
 
 if __name__ == "__main__":
     run_pipeline()
