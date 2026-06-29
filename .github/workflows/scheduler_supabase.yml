@@ -37,6 +37,11 @@ jobs:
     #  run: python scrape/live_scrape.py
     #  continue-on-error: true
 
+    - name: Download Trained Model Asset
+      run: |
+        mkdir -p model
+        curl -L -o model/model.pkl https://github.com/ch-sophie/worldcup-predictions/releases/download/v1.0.0/model.pkl
+
     - name: Run Predictions
       env:
         SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
