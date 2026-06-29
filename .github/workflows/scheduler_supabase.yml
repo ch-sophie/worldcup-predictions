@@ -20,7 +20,7 @@ jobs:
 
     - name: Install Dependencies
       run: |
-        pip install pandas numpy requests python-dotenv joblib supabase scikit-learn
+        pip install pandas numpy requests python-dotenv joblib supabase scikit-learn sqlalchemy
 
     # Run scripts using Supabase Secrets
     - name: Run Loader & Cleaner
