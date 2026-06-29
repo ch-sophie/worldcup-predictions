@@ -29,19 +29,19 @@ jobs:
         SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
       run: python scrape/loader.py
 
-    - name: Fetch Live 2026 Fixtures
-      env:
-        FOOTBALL_DATA_API_KEY: ${{ secrets.FOOTBALL_DATA_API_KEY }}
-        SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-        SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
-      run: python scrape/live_scrape.py
-      continue-on-error: true
+    #- name: Fetch Live 2026 Fixtures
+    #  env:
+    #    FOOTBALL_DATA_API_KEY: ${{ secrets.FOOTBALL_DATA_API_KEY }}
+    #    SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+    #    SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+    #  run: python scrape/live_scrape.py
+    #  continue-on-error: true
 
     - name: Run Predictions
       env:
         SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
         SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
-      run: python model/predict.py
+      run: python model/predict_supabase.py
 
     - name: Run Tournament Simulation
       env:

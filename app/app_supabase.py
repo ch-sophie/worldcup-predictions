@@ -68,16 +68,19 @@ def fetch_predictions():
         st.error(f"Error fetching predictions: {e}")
         return pd.DataFrame()
 
-@st.cache_data(ttl=300)
+@st.cache_data(ttl=60)  # Reduced to 60 seconds so it updates faster
 def fetch_tournament():
     try:
-        # Ordering by rank using Supabase syntax
-        response = supabase.table("tournament_predictions") \
-                           .select("rank, team, win_pct, final_pct, semifinal_pct") \
-                           .order("rank", ascending=True) \
-                           .execute()
-        return pd.DataFrame(response.data)
+        # Pull everything (*) first to circumvent selective column matching issues
+        response = supabase.table("tournament_predictions").select("*").execute()
+        df = pd.DataFrame(response.data)
+        
+        # Sort manually using Pandas to be completely safe
+        if not df.empty and 'win_pct' in df.columns:
+            df = df.sort_values('win_pct', ascending=False).reset_index(drop=True)
+        return df
     except Exception as e:
+        st.error(f"Error fetching tournament data: {e}")
         return pd.DataFrame()
 
 df_live_raw = fetch_live_matches()

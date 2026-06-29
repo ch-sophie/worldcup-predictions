@@ -3,7 +3,6 @@ import numpy as np
 import pandas as pd
 from dotenv import load_dotenv
 from supabase import create_client
-from sqlalchemy import create_engine
 from collections import defaultdict
 
 load_dotenv()
@@ -18,8 +17,6 @@ if not SUPABASE_URL or not SUPABASE_KEY:
 supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
 
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
-DB_PATH = os.path.abspath(os.path.join(CURRENT_DIR, "..", "worldcup_2026.db"))
-engine = create_engine(f"sqlite:///{DB_PATH}")
 MODEL_PATH = os.path.join(CURRENT_DIR, "model.pkl")
 
 HOSTS        = {'united states', 'mexico', 'canada'}
@@ -32,11 +29,13 @@ FEATURE_COLS = [
 
 # --- reference data ---
 def load_refs():
-    elo = pd.read_sql_query("SELECT country, elo_latest FROM elo_latest", engine)
+    elo_res = supabase.table("elo_latest").select("country, elo_latest").execute()
+    elo = pd.DataFrame(elo_res.data)
     elo['country'] = elo['country'].str.lower().str.strip()
     elo_dict = dict(zip(elo['country'], elo['elo_latest']))
 
-    form = pd.read_sql_query("SELECT * FROM team_form", engine)
+    form_res = supabase.table("team_form").select("*").execute()
+    form = pd.DataFrame(form_res.data)
     form['team'] = form['team'].str.lower().str.strip()
     form_dict = form.set_index('team').to_dict(orient='index')
 
@@ -90,11 +89,12 @@ def upsert_to_supabase(table: str, records: list, conflict_col: str):
 def run_match_predictions(model, elo_dict, form_dict):
     print("\n--- Match Predictions ---")
 
-    df_upcoming = pd.read_sql_query(
-        "SELECT * FROM fixtures_2026_upcoming", engine
-    )
+    # Fetch from Supabase instead of SQLite
+    upcoming_res = supabase.table("fixtures_2026_upcoming").select("*").execute()
+    df_upcoming = pd.DataFrame(upcoming_res.data)
+    
     if df_upcoming.empty:
-        print("No upcoming fixtures found in local DB.")
+        print("No upcoming fixtures found in Supabase.")
         return
 
     results = []
@@ -141,22 +141,23 @@ def run_match_predictions(model, elo_dict, form_dict):
 def run_tournament_simulation(model, elo_dict, form_dict, n_sims: int = 10_000):
     print(f"\n--- Tournament Simulation ({n_sims:,} runs) ---")
 
-    # Load group data from local DB
-    df_teams = pd.read_sql_query("SELECT team, `group` FROM teams_2026_clean", engine)
+    # Load group data from Supabase instead of SQLite
+    teams_res = supabase.table("teams_2026_clean").select("team, group").execute()
+    df_teams = pd.DataFrame(teams_res.data)
     df_teams['team'] = df_teams['team'].str.lower().str.strip()
     groups = df_teams.groupby('group')['team'].apply(list).to_dict()
 
-    df_live = pd.read_sql_query(
-        "SELECT team1, team2, score1, score2 FROM fixtures_2026_live WHERE stage='GROUP_STAGE'", engine
-    )
-    df_live['team1'] = df_live['team1'].str.lower().str.strip()
-    df_live['team2'] = df_live['team2'].str.lower().str.strip()
+    live_res = supabase.table("fixtures_2026_live").select("team1, team2, score1, score2").eq("stage", "GROUP_STAGE").execute()
+    df_live = pd.DataFrame(live_res.data)
+    if not df_live.empty:
+        df_live['team1'] = df_live['team1'].str.lower().str.strip()
+        df_live['team2'] = df_live['team2'].str.lower().str.strip()
 
-    df_up = pd.read_sql_query(
-        "SELECT team1, team2 FROM fixtures_2026_upcoming WHERE stage='GROUP_STAGE'", engine
-    )
-    df_up['team1'] = df_up['team1'].str.lower().str.strip()
-    df_up['team2'] = df_up['team2'].str.lower().str.strip()
+    up_res = supabase.table("fixtures_2026_upcoming").select("team1, team2").eq("stage", "GROUP_STAGE").execute()
+    df_up = pd.DataFrame(up_res.data)
+    if not df_up.empty:
+        df_up['team1'] = df_up['team1'].str.lower().str.strip()
+        df_up['team2'] = df_up['team2'].str.lower().str.strip()
 
     all_teams = [t for teams in groups.values() for t in teams]
     print(f"Pre-computing probability cache for {len(all_teams)} teams...")
@@ -164,15 +165,16 @@ def run_tournament_simulation(model, elo_dict, form_dict, n_sims: int = 10_000):
 
     # Base standings from real results
     base_pts, base_gd, base_gf = defaultdict(int), defaultdict(int), defaultdict(int)
-    for _, r in df_live.iterrows():
-        t1, t2, s1, s2 = r['team1'], r['team2'], int(r['score1']), int(r['score2'])
-        if s1 > s2:   base_pts[t1] += 3
-        elif s2 > s1: base_pts[t2] += 3
-        else:         base_pts[t1] += 1; base_pts[t2] += 1
-        base_gd[t1] += s1-s2; base_gd[t2] += s2-s1
-        base_gf[t1] += s1;    base_gf[t2] += s2
+    if not df_live.empty:
+        for _, r in df_live.iterrows():
+            t1, t2, s1, s2 = r['team1'], r['team2'], int(r['score1']), int(r['score2'])
+            if s1 > s2:   base_pts[t1] += 3
+            elif s2 > s1: base_pts[t2] += 3
+            else:         base_pts[t1] += 1; base_pts[t2] += 1
+            base_gd[t1] += s1-s2; base_gd[t2] += s2-s1
+            base_gf[t1] += s1;    base_gf[t2] += s2
 
-    upcoming_pairs = list(zip(df_up['team1'], df_up['team2']))
+    upcoming_pairs = list(zip(df_up['team1'], df_up['team2'])) if not df_up.empty else []
     rands = np.random.random((n_sims, len(upcoming_pairs)))
 
     champion_counts  = defaultdict(int)
@@ -256,7 +258,8 @@ def run_tournament_simulation(model, elo_dict, form_dict, n_sims: int = 10_000):
     print(f"\n{'Rank':<5} {'Team':<22} {'Win%':>7} {'Final%':>8} {'Semi%':>7}")
     print("─" * 55)
     for r in records[:10]:
-        medal = ["🥇","🥈","🥉"].get(r['rank']-1, "  ") if r['rank'] <= 3 else "  "
+        # Use a list index lookup instead of .get() on a list to prevent crashes
+        medal = ["🥇", "🥈", "🥉"][r['rank']-1] if r['rank'] <= 3 else "  "
         print(f"{r['rank']:<5} {medal} {r['team']:<20} "
               f"{r['win_pct']:>6.1f}%  {r['final_pct']:>6.1f}%  {r['semifinal_pct']:>6.1f}%")
 
