@@ -1,4 +1,6 @@
-import os, argparse, joblib
+import os
+import argparse
+import joblib
 import numpy as np
 import pandas as pd
 from dotenv import load_dotenv
@@ -12,12 +14,13 @@ SUPABASE_URL = os.getenv("SUPABASE_URL")
 SUPABASE_KEY = os.getenv("SUPABASE_KEY")
 
 if not SUPABASE_URL or not SUPABASE_KEY:
-    raise EnvironmentError("SUPABASE_URL and SUPABASE_KEY must be set in your .env file.")
+    raise EnvironmentError("SUPABASE_URL and SUPABASE_KEY must be set in your .env file to update Render.")
 
 supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
 
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 MODEL_PATH = os.path.join(CURRENT_DIR, "model.pkl")
+CSV_PATH = os.path.join(CURRENT_DIR, "..", "data", "results.csv")
 
 HOSTS        = {'united states', 'mexico', 'canada'}
 FEATURE_COLS = [
@@ -27,8 +30,41 @@ FEATURE_COLS = [
     'team1_is_host',   'team2_is_host',
 ]
 
-# --- reference data ---
+# --- load data from CSV ---
+def load_csv_fixtures():
+    """Loads results.csv and splits it into completed (live) and upcoming fixtures."""
+    if not os.path.exists(CSV_PATH):
+        raise FileNotFoundError(f"Could not find Kaggle dataset at: {CSV_PATH}")
+        
+    columns = ['date', 'team1', 'team2', 'score1', 'score2', 'tournament', 'city', 'country', 'neutral']
+    df = pd.read_csv(CSV_PATH, names=columns, header=None)
+    
+    # Coerce scores to numbers; text strings like 'NA' naturally become NaN
+    df['score1'] = pd.to_numeric(df['score1'], errors='coerce')
+    df['score2'] = pd.to_numeric(df['score2'], errors='coerce')
+    
+    # Basic data cleaning for joining references
+    df['team1_clean'] = df['team1'].astype(str).str.lower().str.strip()
+    df['team2_clean'] = df['team2'].astype(str).str.lower().str.strip()
+    
+    # Split into completed matches vs upcoming matches
+    df_live = df[df['score1'].notna()].copy()
+    df_upcoming = df[df['score1'].isna()].copy()
+    
+    # Generate mock auto-incrementing match IDs for database tracking compatibility
+    df_upcoming['match_id'] = range(1, len(df_upcoming) + 1)
+    
+    # Fallback to general STAGE assumption if column isn't provided by dataset
+    if 'stage' not in df_upcoming.columns:
+        df_upcoming['stage'] = 'GROUP_STAGE'
+    if 'stage' not in df_live.columns:
+        df_live['stage'] = 'GROUP_STAGE'
+        
+    return df_live, df_upcoming
+
+# --- reference data from Supabase ---
 def load_refs():
+    """Fetches reference performance tables from Supabase."""
     elo_res = supabase.table("elo_latest").select("country, elo_latest").execute()
     elo = pd.DataFrame(elo_res.data)
     elo['country'] = elo['country'].str.lower().str.strip()
@@ -86,21 +122,17 @@ def upsert_to_supabase(table: str, records: list, conflict_col: str):
     print(f"  ✓ Upserted {total} rows to '{table}'")
 
 # --- match predictions ---
-def run_match_predictions(model, elo_dict, form_dict):
+def run_match_predictions(model, df_upcoming, elo_dict, form_dict):
     print("\n--- Match Predictions ---")
 
-    # Fetch from Supabase instead of SQLite
-    upcoming_res = supabase.table("fixtures_2026_upcoming").select("*").execute()
-    df_upcoming = pd.DataFrame(upcoming_res.data)
-    
     if df_upcoming.empty:
-        print("No upcoming fixtures found in Supabase.")
+        print("No upcoming fixtures found in CSV dataset.")
         return
 
     results = []
     for _, row in df_upcoming.iterrows():
-        t1 = row['team1'].lower().strip()
-        t2 = row['team2'].lower().strip()
+        t1 = row['team1_clean']
+        t2 = row['team2_clean']
 
         feats = build_features(t1, t2, elo_dict, form_dict)
         X     = pd.DataFrame([feats])[FEATURE_COLS]
@@ -115,14 +147,14 @@ def run_match_predictions(model, elo_dict, form_dict):
             'match_id':       int(row['match_id']),
             'date':           str(row['date']),
             'stage':          str(row['stage']),
-            'team1':          row['team1'],
-            'team2':          row['team2'],
+            'team1':          str(row['team1']),
+            'team2':          str(row['team2']),
             'prob_team1_win': round(p1 * 100, 1),
             'prob_draw':      round(pd_ * 100, 1),
             'prob_team2_win': round(p2 * 100, 1),
             'prediction': (
-                row['team1'] if p1 >= pd_ and p1 >= p2
-                else row['team2'] if p2 >= pd_
+                str(row['team1']) if p1 >= pd_ and p1 >= p2
+                else str(row['team2']) if p2 >= pd_
                 else 'Draw'
             ),
         })
@@ -138,43 +170,35 @@ def run_match_predictions(model, elo_dict, form_dict):
     upsert_to_supabase('predictions_2026', results, 'match_id')
 
 # --- tournament simulation ---
-def run_tournament_simulation(model, elo_dict, form_dict, n_sims: int = 10_000):
+def run_tournament_simulation(model, df_live, df_upcoming, elo_dict, form_dict, n_sims: int = 10_000):
     print(f"\n--- Tournament Simulation ({n_sims:,} runs) ---")
 
-    # Load group data from Supabase instead of SQLite
+    # Load group alignment data from Supabase
     teams_res = supabase.table("teams_2026_clean").select("team, group").execute()
     df_teams = pd.DataFrame(teams_res.data)
     df_teams['team'] = df_teams['team'].str.lower().str.strip()
     groups = df_teams.groupby('group')['team'].apply(list).to_dict()
 
-    live_res = supabase.table("fixtures_2026_live").select("team1, team2, score1, score2").eq("stage", "GROUP_STAGE").execute()
-    df_live = pd.DataFrame(live_res.data)
-    if not df_live.empty:
-        df_live['team1'] = df_live['team1'].str.lower().str.strip()
-        df_live['team2'] = df_live['team2'].str.lower().str.strip()
-
-    up_res = supabase.table("fixtures_2026_upcoming").select("team1, team2").eq("stage", "GROUP_STAGE").execute()
-    df_up = pd.DataFrame(up_res.data)
-    if not df_up.empty:
-        df_up['team1'] = df_up['team1'].str.lower().str.strip()
-        df_up['team2'] = df_up['team2'].str.lower().str.strip()
+    # Filter CSV datasets to only handle the group stage fixtures for structural progression
+    df_live_gs = df_live[df_live['stage'] == 'GROUP_STAGE']
+    df_up_gs = df_upcoming[df_upcoming['stage'] == 'GROUP_STAGE']
 
     all_teams = [t for teams in groups.values() for t in teams]
     print(f"Pre-computing probability cache for {len(all_teams)} teams...")
     cache_gs, cache_ko = build_prob_cache(all_teams, model, elo_dict, form_dict)
 
-    # Base standings from real results
+    # Base standings built directly out of your parsed CSV values
     base_pts, base_gd, base_gf = defaultdict(int), defaultdict(int), defaultdict(int)
-    if not df_live.empty:
-        for _, r in df_live.iterrows():
-            t1, t2, s1, s2 = r['team1'], r['team2'], int(r['score1']), int(r['score2'])
-            if s1 > s2:   base_pts[t1] += 3
-            elif s2 > s1: base_pts[t2] += 3
-            else:         base_pts[t1] += 1; base_pts[t2] += 1
-            base_gd[t1] += s1-s2; base_gd[t2] += s2-s1
-            base_gf[t1] += s1;    base_gf[t2] += s2
+    for _, r in df_live_gs.iterrows():
+        t1, t2 = r['team1_clean'], r['team2_clean']
+        s1, s2 = int(r['score1']), int(r['score2'])
+        if s1 > s2:   base_pts[t1] += 3
+        elif s2 > s1: base_pts[t2] += 3
+        else:         base_pts[t1] += 1; base_pts[t2] += 1
+        base_gd[t1] += s1 - s2; base_gd[t2] += s2 - s1
+        base_gf[t1] += s1;     base_gf[t2] += s2
 
-    upcoming_pairs = list(zip(df_up['team1'], df_up['team2'])) if not df_up.empty else []
+    upcoming_pairs = list(zip(df_up_gs['team1_clean'], df_up_gs['team2_clean']))
     rands = np.random.random((n_sims, len(upcoming_pairs)))
 
     champion_counts  = defaultdict(int)
@@ -258,7 +282,6 @@ def run_tournament_simulation(model, elo_dict, form_dict, n_sims: int = 10_000):
     print(f"\n{'Rank':<5} {'Team':<22} {'Win%':>7} {'Final%':>8} {'Semi%':>7}")
     print("─" * 55)
     for r in records[:10]:
-        # Use a list index lookup instead of .get() on a list to prevent crashes
         medal = ["🥇", "🥈", "🥉"][r['rank']-1] if r['rank'] <= 3 else "  "
         print(f"{r['rank']:<5} {medal} {r['team']:<20} "
               f"{r['win_pct']:>6.1f}%  {r['final_pct']:>6.1f}%  {r['semifinal_pct']:>6.1f}%")
@@ -276,14 +299,17 @@ if __name__ == "__main__":
 
     print("Loading model and reference data...")
     if not os.path.exists(MODEL_PATH):
-        raise FileNotFoundError("model.pkl not found — run `python 03_train_model.py --retrain` first.")
+        raise FileNotFoundError(f"model.pkl not found at {MODEL_PATH}")
 
     model = joblib.load(MODEL_PATH)
     elo_dict, form_dict = load_refs()
 
-    run_match_predictions(model, elo_dict, form_dict)
+    print("Parsing matches from local CSV...")
+    df_live, df_upcoming = load_csv_fixtures()
+
+    run_match_predictions(model, df_upcoming, elo_dict, form_dict)
 
     if args.tournament:
-        run_tournament_simulation(model, elo_dict, form_dict, n_sims=args.sims)
+        run_tournament_simulation(model, df_live, df_upcoming, elo_dict, form_dict, n_sims=args.sims)
 
     print("\nDone.")
