@@ -34,11 +34,11 @@ jobs:
         DATABASE_URL: ${{ secrets.DATABASE_URL }}
         KAGGLE_USERNAME: ${{ secrets.KAGGLE_USERNAME }}
       run: |
-        python load_sync.py
+        python scrape/load_sync.py
 
     - name: Execute Model Predictions & Push to Supabase
       env:
         SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
         SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
       run: |
-        python predict_kaggle.py 
+        python model/predict_kaggle.py 
