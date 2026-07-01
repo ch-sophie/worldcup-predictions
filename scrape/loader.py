@@ -33,13 +33,13 @@ datasets = {
     "wc_2026_fixtures.csv": {"table": "fixtures_2026", "action": "replace"},
     "wc_2026_teams.csv": {"table": "teams_2026", "action": "replace"},
     "elo_ratings_wc2026.csv": {"table": "elo_ratings_2026", "action": "replace"},
-    "former_names.csv": {"table": "former_names_2026", "action": "replace"},
-    "goalscorers.csv": {"table": "goalscorers", "action": "replace"},
+    #"former_names.csv": {"table": "former_names_2026", "action": "replace"},
+    #"goalscorers.csv": {"table": "goalscorers", "action": "replace"},
     "results.csv": {"table": "results", "action": "replace"},
     "shootouts.csv": {"table": "shootouts", "action": "replace"},
-    "wc_all_editions.csv": {"table": "wc_all_editions", "action": "replace"},
-    "wc_all_matches.csv": {"table": "wc_all_matches", "action": "replace"},
-    "wc_top_scorers.csv": {"table": "wc_top_scorers", "action": "replace"},
+    #"wc_all_editions.csv": {"table": "wc_all_editions", "action": "replace"},
+    #"wc_all_matches.csv": {"table": "wc_all_matches", "action": "replace"},
+    #"wc_top_scorers.csv": {"table": "wc_top_scorers", "action": "replace"},
 }
 
 for csv_name, config in datasets.items():

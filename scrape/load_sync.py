@@ -28,7 +28,7 @@ os.makedirs(DATA_DIR, exist_ok=True)
 
 KAGGLE_DATASETS = {
     "martj42/international-football-results-from-1872-to-2017": [
-        "results.csv", "former_names.csv", "goalscorers.csv", "shootouts.csv"
+        "results.csv", "goalscorers.csv", "shootouts.csv"
     ],
     "afonsofernandescruz/2026-fifa-world-cup-historical-elo-ratings": [
         "elo_ratings_wc2026.csv"
@@ -70,7 +70,6 @@ def run_pipeline():
     fetch_all_kaggle_data()
     datasets = {
         "elo_ratings_wc2026.csv": "elo_ratings_2026",
-        "former_names.csv": "former_names_2026",
         "goalscorers.csv": "goalscorers",
         "shootouts.csv": "shootouts",
         "results.csv": "results",
@@ -100,8 +99,8 @@ def run_pipeline():
     columns = ['date', 'team1', 'team2', 'score1', 'score2', 'tournament', 'city', 'country', 'neutral']
     df_results = pd.read_csv(results_path, names=columns, header=None)
     
-    # 🌟 NEW FILTER: Keep ONLY the 2026 World Cup tournament matches 🌟
-    # Option A: Filter by date range (Safest choice for this historical file)
+    # Keep ONLY the 2026 World Cup tournament matches
+    # Option A: Filter by date range
     df_results = df_results[
         (df_results['date'] >= '2026-06-11') & 
         (df_results['date'] <= '2026-07-19') & 
